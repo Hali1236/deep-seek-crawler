@@ -14,18 +14,23 @@ from models.venue import Venue
 from utils.data_utils import is_complete_venue, is_duplicate_venue
 
 
+# utils/scraper_utils.py
+
+from crawl4ai import BrowserConfig
 
 def get_browser_config() -> BrowserConfig:
     """
     Returns the browser configuration for the crawler in text mode
-    (no Playwright chromium launch).
+    (no real browser launch).
     """
     return BrowserConfig(
-        browser_type="chromium",
-        headless=True,
+        browser_type="chromium",  # still chromium for JS support
+        headless=True,            # no UI
         verbose=True,
-        text_mode=True,     # ← add this
+        text_mode=True,           # <<< THIS LINE forces HTTP+JS rather than Playwright
     )
+
+
 
 def get_llm_strategy() -> LLMExtractionStrategy:
     return LLMExtractionStrategy(
