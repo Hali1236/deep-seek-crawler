@@ -1,3 +1,15 @@
+import os
+import streamlit as st
+
+# ——— Inject your secrets into os.environ ———
+# (set these in your Streamlit Cloud “Secrets” panel)
+os.environ["GROQ_API_KEY"]   = st.secrets["GROQ_API_KEY"]
+os.environ["OPENAI_API_KEY"] = st.secrets["OPENAI_API_KEY"]
+
+# ——— Now import the rest ———
+import pandas as pd
+from scraper import scrape_all
+
 import streamlit as st
 import pandas as pd
 from scraper import scrape_all      # the function you exposed in scraper.py
