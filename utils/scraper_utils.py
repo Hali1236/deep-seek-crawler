@@ -14,20 +14,18 @@ from models.venue import Venue
 from utils.data_utils import is_complete_venue, is_duplicate_venue
 
 
+
 def get_browser_config() -> BrowserConfig:
     """
-    Returns the browser configuration for the crawler.
-
-    Returns:
-        BrowserConfig: The configuration settings for the browser.
+    Returns the browser configuration for the crawler in text mode
+    (no Playwright chromium launch).
     """
-    # https://docs.crawl4ai.com/core/browser-crawler-config/
     return BrowserConfig(
-        browser_type="chromium",  
-        headless=False,  
-        verbose=True, 
+        browser_type="chromium",
+        headless=True,
+        verbose=True,
+        text_mode=True,     # ← add this
     )
-
 
 def get_llm_strategy() -> LLMExtractionStrategy:
     return LLMExtractionStrategy(
