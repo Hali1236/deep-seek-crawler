@@ -1,4 +1,12 @@
 # app.py
+import os
+
+# Force Crawl4AI into HTTP+JS “text mode” (no real browser)
+os.environ["CRAWL4AI_TEXT_MODE"] = "1"
+
+import streamlit as st
+# … rest of your imports …
+
 import sys, subprocess
 
 # Ensure the Chromium browser gets installed for Playwright
