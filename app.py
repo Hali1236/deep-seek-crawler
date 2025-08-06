@@ -1,3 +1,15 @@
+# app.py
+import sys, subprocess
+
+# Ensure the Chromium browser gets installed for Playwright
+subprocess.run(
+    [sys.executable, "-m", "playwright", "install", "chromium"],
+    check=True,
+)
+
+import os, streamlit as st
+# … rest of your imports …
+
 import os
 import streamlit as st
 
