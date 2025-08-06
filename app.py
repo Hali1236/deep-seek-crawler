@@ -1,3 +1,5 @@
+
+
 # app.py
 
 import os
@@ -7,10 +9,18 @@ os.environ["CRAWL4AI_TEXT_MODE"] = "1"
 
 import streamlit as st
 
-# 2️⃣ Inject your secrets into the environment (set these in
-#    the Streamlit Cloud UI under Settings → Secrets)
-os.environ["GROQ_API_KEY"]   = st.secrets["GROQ_API_KEY"]
-os.environ["OPENAI_API_KEY"] = st.secrets["OPENAI_API_KEY"]
+# 2️⃣ Load API keys (first try Streamlit secrets.toml, then fall back to OS env vars)
+groq_key   = st.secrets.get("GROQ_API_KEY")   or os.environ.get("GROQ_API_KEY")
+openai_key = st.secrets.get("OPENAI_API_KEY") or os.environ.get("OPENAI_API_KEY")
+
+if not groq_key or not openai_key:
+    st.error("🔑 You must set GROQ_API_KEY and OPENAI_API_KEY\n"
+             "– either in a .streamlit/secrets.toml or via OS environment variables.")
+    st.stop()
+
+os.environ["GROQ_API_KEY"]   = groq_key
+os.environ["OPENAI_API_KEY"] = openai_key
+
 
 # 3️⃣ Now import the rest of your dependencies
 import pandas as pd
